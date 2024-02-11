@@ -1,0 +1,16 @@
+{
+  "name": "tla",
+  "version": "1.0.0",
+  "description": "TLA node backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TLA_WEB_TEAM_2024",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "yargs": "^17.7.2"
+  }
+}
