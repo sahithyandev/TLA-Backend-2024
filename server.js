@@ -2,10 +2,8 @@
 const http = require("http");
 const app = require("./app");
 const sequelize = require("./db/db");
-const { sql } = require("./config/config").sql;
 
 const port = process.env.PORT || 3000;
-
 const server = http.createServer(app);
 
 // Use the server's 'listening' event to ensure the SQL Server connection is established before starting the server
