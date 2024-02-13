@@ -1,29 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const contactController = require("../controllers/contactController");
 
-router.get("/", (req, res, next) => {
-  res.status(200).json({ message: "Handling GET requests to /contacts" });
-});
+// GET all contacts
+router.get("/", contactController.getAllContacts);
 
-router.post("/", (req, res, next) => {
-  res.status(201).json({ message: "Handling POST requests to /contacts" });
-});
+// POST a new contact
+router.post("/", contactController.createContact);
 
-router.get("/:contactId", (req, res, next) => {
-  const id = req.params.contactId;
-  if (id === 1) {
-    res.status(200).json({ message: "You discovered the special ID", id: id });
-  } else {
-    res.status(200).json({ message: "You passed an ID" });
-  }
-});
+// GET a specific contact by ID
+router.get("/:contactId", contactController.getContactById);
 
-router.patch("/:contactId", (req, res, next) => {
-  res.status(200).json({ message: "Updated contact!" });
-});
+// PATCH (update) a contact by ID
+router.patch("/:contactId", contactController.updateContact);
 
-router.delete("/:contactId", (req, res, next) => {
-  res.status(200).json({ message: "Deleted contact!" });
-});
+// DELETE a contact by ID
+router.delete("/:contactId", contactController.deleteContact);
 
 module.exports = router;
