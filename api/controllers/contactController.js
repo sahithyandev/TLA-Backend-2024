@@ -13,7 +13,6 @@ const contactController = {
 
   createContact: async (req, res, next) => {
     try {
-      console.log(req.body);
       const newContact = await Contact.create(req.body);
       res.status(201).json(newContact);
     } catch (error) {
