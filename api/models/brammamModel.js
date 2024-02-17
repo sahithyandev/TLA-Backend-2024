@@ -1,4 +1,31 @@
-// models/brammam.model.js
+"use strict";
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Brammam:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         category:
+ *           type: string
+ *         heading1:
+ *           type: string
+ *         heading2:
+ *           type: string
+ *         heading3:
+ *           type: string
+ *         deadline:
+ *           type: string
+ *         qRlink:
+ *           type: string
+ *         priceK1:
+ *           type: string
+ *         priceS2:
+ *           type: string
+ */
+
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../db/db");
 

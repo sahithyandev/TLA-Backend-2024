@@ -1,4 +1,3 @@
-// controllers/aramiyam.controller.js
 const Aramiyam = require("../models/aramiyamModel");
 
 const aramiyamController = {

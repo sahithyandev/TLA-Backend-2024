@@ -1,4 +1,25 @@
 "use strict";
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Contact:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         message:
+ *           type: string
+ *         phoneNumber:
+ *           type: string
+ *         category:
+ *           type: string
+ */
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../db/db");
 
@@ -15,6 +36,9 @@ const Contact = sequelize.define("Contact", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      isEmail: true,
+    },
   },
   message: {
     type: DataTypes.STRING,
