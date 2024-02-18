@@ -1,4 +1,3 @@
-// controllers/brammam.controller.js
 const Brammam = require("../models/brammamModel");
 
 const brammamController = {

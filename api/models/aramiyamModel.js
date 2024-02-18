@@ -1,3 +1,31 @@
+"use strict";
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Aramiyam:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         heading:
+ *           type: string
+ *         description:
+ *           type: string
+ *         category:
+ *           type: string
+ *         date:
+ *           type: string
+ *         time:
+ *           type: string
+ *         speecher:
+ *           type: string
+ *         qualification:
+ *           type: string
+ *         speecherDetails:
+ *           type: string
+ */
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../db/db");
 
