@@ -52,61 +52,53 @@
  *
  */
 
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../db/db");
+const mongoose = require("mongoose");
 
-const District = sequelize.define("District", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  date: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  place: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  coordinator: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  contactNumber: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  province: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  imageURL: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    validate: {
-      isUrl: true,
+const districtSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: String,
+      required: true,
+    },
+    place: {
+      type: String,
+      required: true,
+    },
+    coordinator: {
+      type: String,
+      required: true,
+    },
+    contactNumber: {
+      type: Number,
+      required: true,
+    },
+    province: {
+      type: String,
+      required: true,
+    },
+    imageURL: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^(ftp|http|https):\/\/[^ "]+$/.test(v);
+        },
+        message: "Invalid URL format",
+      },
     },
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
+
+const District = mongoose.model("District", districtSchema);
 
 module.exports = District;

@@ -43,60 +43,108 @@
  *           description: The date the school was updated.
  *           example: '2024-02-12'
  */
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../db/db");
-const District = require("./districtModel");
+// const { DataTypes } = require("sequelize");
+// const sequelize = require("../../db/db");
+// const District = require("./districtModel");
 
-const School = sequelize.define("School", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
+// const School = sequelize.define("School", {
+//   id: {
+//     type: DataTypes.INTEGER,
+//     primaryKey: true,
+//     autoIncrement: true,
+//   },
+//   name: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   rank: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   incharge: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   contactNumber: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false,
+//     validate: {
+//       isNumeric: true,
+//     },
+//   },
+//   districtId: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false,
+//     references: {
+//       model: District,
+//       key: "id",
+//     },
+//   },
+//   schoolImage: {
+//     type: DataTypes.STRING,
+//     allowNull: true,
+//     validate: {
+//       isUrl: true,
+//     },
+//   },
+//   createdAt: {
+//     type: DataTypes.DATE,
+//     allowNull: false,
+//     defaultValue: DataTypes.NOW,
+//   },
+//   updatedAt: {
+//     type: DataTypes.DATE,
+//     allowNull: false,
+//     defaultValue: DataTypes.NOW,
+//   },
+// });
+
+// module.exports = School;
+const mongoose = require("mongoose");
+
+const schoolSchema = new mongoose.Schema({
   name: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
   rank: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
   incharge: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
   contactNumber: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      isNumeric: true,
-    },
+    type: Number,
+    required: true,
   },
   districtId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: District,
-      key: "id",
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "District", // Reference to the District model
+    required: true,
   },
   schoolImage: {
-    type: DataTypes.STRING,
-    allowNull: true,
+    type: String,
     validate: {
-      isUrl: true,
+      validator: (value) => {
+        // Custom URL validation
+        if (!value) return true; // Allow null values
+        return /^(ftp|http|https):\/\/[^ "]+$/.test(value);
+      },
+      message: "Invalid URL format",
     },
   },
   createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
+    type: Date,
+    default: Date.now,
   },
   updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
+    type: Date,
+    default: Date.now,
   },
 });
+
+const School = mongoose.model("School", schoolSchema);
 
 module.exports = School;

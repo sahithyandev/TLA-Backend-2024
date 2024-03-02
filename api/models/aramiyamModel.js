@@ -26,47 +26,88 @@
  *         speecherDetails:
  *           type: string
  */
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../db/db");
+// const { DataTypes } = require("sequelize");
+// const sequelize = require("../../db/db");
 
-const Aramiyam = sequelize.define("Aramiyam", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
+// const Aramiyam = sequelize.define("Aramiyam", {
+//   id: {
+//     type: DataTypes.INTEGER,
+//     primaryKey: true,
+//     autoIncrement: true,
+//   },
+//   heading: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   description: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   category: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   date: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   time: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   speecher: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   qualification: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   speecherDetails: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+// });
+
+// module.exports = Aramiyam;
+
+const mongoose = require("mongoose");
+
+const aramiyamSchema = new mongoose.Schema({
   heading: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
   description: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
   category: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
   date: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
   time: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
-  speecher: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  speaker: {
+    type: String,
+    required: true,
   },
   qualification: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
-  speecherDetails: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  speakerDetails: {
+    type: String,
+    required: true,
   },
 });
+
+const Aramiyam = mongoose.model("Aramiyam", aramiyamSchema);
 
 module.exports = Aramiyam;
