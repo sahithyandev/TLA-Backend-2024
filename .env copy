@@ -1,0 +1,11 @@
+NODE_ENV=development
+
+
+#EXPRESS SERVER CONFIG
+PORT=port number
+HOST=host name
+HOST_URL=http://localhost:port number
+
+
+#MongoDB CONFIG
+MONGODB_URI=your mongoDb conncetion string
