@@ -6,12 +6,8 @@ const aramiyamRoutes = require("./api/routes/aramiyamRoutes");
 const districtRoutes = require("./api/routes/districtRoutes");
 const schoolRoutes = require("./api/routes/schoolRoutes");
 const brammamRoutes = require("./api/routes/brammamRoutes");
-const { swaggerSpec, swaggerUi } = require("./swagger");
 
 const app = express();
-
-//Serve Swagger documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // console.log(swaggerSpec);
 // Enable CORS for all origins during development
