@@ -45,15 +45,6 @@ module.exports = {
 			res.status(500).json({ error: "Internal Server Error" });
 		}
 	},
-	createUser: async (req, res) => {
-		try {
-			const newUser = await User.create(req.body);
-			res.status(201).json(newUser);
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ error: "Internal Server Error" });
-		}
-	},
 	login: async (req, res) => {
 		try {
 			const { email, password } = req.body;
@@ -88,8 +79,10 @@ module.exports = {
 					sameSite: "lax",
 					domain: "127.0.0.1",
 				}).json({
-					passwordHash: null,
-					...user
+					name: user.name,
+					email: user.email,
+					phoneNo: user.phoneNo,
+					profileUrl: user.profileImageUrl
 				});
 			return;
 		} catch (error) {
@@ -106,7 +99,7 @@ module.exports = {
 				return;
 			}
 
-			const _alreadyExists = await User.find({
+			const _alreadyExists = await User.findOne({
 				email: email.toLowerCase()
 			})
 
@@ -134,6 +127,36 @@ module.exports = {
 					domain: "127.0.0.1",
 				}).json({ passwordHash: null, ...user });
 			return;
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ error: "Internal Server Error" });
+		}
+	},
+	getCurrentUser: async (req, res) => {
+		try {
+
+			const cookies = req.cookies;
+			if (!cookies || !cookies[COOKIE_USER_ID]) {
+				res.status(404).json({ error: "no current user" });
+				return;
+			}
+
+			const userCookie = cookies[COOKIE_USER_ID];
+			const user = await User.findOne({
+				loggedInCookie: userCookie
+			});
+
+			if (!user) {
+				res.status(404).json({ error: "no user found" })
+				return;
+			}
+
+			res.status(200).json({
+				name: user.name,
+				email: user.email,
+				phoneNo: user.phoneNo,
+				profileUrl: user.profileImageUrl
+			});
 		} catch (error) {
 			console.error(error);
 			res.status(500).json({ error: "Internal Server Error" });

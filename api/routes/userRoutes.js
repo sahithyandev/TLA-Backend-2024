@@ -8,6 +8,9 @@ router.get("/", userController.getAllUsers);
 // POST a new user
 router.post("/", userController.createUser);
 
+// GET current user info
+router.get("/current", userController.getCurrentUser)
+
 // GET a specific user by ID
 router.get("/:userId", userController.getUserById);
 

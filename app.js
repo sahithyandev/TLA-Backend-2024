@@ -1,6 +1,8 @@
 "use strict";
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
+
 const contactRoutes = require("./api/routes/contactRoutes");
 const aramiyamRoutes = require("./api/routes/aramiyamRoutes");
 const districtRoutes = require("./api/routes/districtRoutes");
@@ -12,9 +14,12 @@ const app = express();
 
 // console.log(swaggerSpec);
 // Enable CORS for all origins during development
-app.use(cors());
+app.use(cors({
+	origin: true,
+	credentials: true
+}));
 
-app.get;
+app.use(cookieParser());
 // Parse JSON requests
 app.use(express.json());
 
