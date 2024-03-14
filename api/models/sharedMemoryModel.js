@@ -1,7 +1,6 @@
 "use strict";
 const mongoose = require("mongoose");
-
-const GridFile = mongoose.model('GridFile', require("gridfile"));
+const { GridFileSchema } = require("./GridFile");
 
 const sharedMemorySchema = new mongoose.Schema({
 	sharedBy: {
@@ -17,7 +16,7 @@ const sharedMemorySchema = new mongoose.Schema({
 		required: true,
 	},
 	images: {
-		type: [GridFile],
+		type: [GridFileSchema],
 	},
 });
 

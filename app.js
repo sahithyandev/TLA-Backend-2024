@@ -6,6 +6,7 @@ const aramiyamRoutes = require("./api/routes/aramiyamRoutes");
 const districtRoutes = require("./api/routes/districtRoutes");
 const schoolRoutes = require("./api/routes/schoolRoutes");
 const brammamRoutes = require("./api/routes/brammamRoutes");
+const userRoutes = require("./api/routes/userRoutes");
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use("/aramiyams", aramiyamRoutes);
 app.use("/districts", districtRoutes);
 app.use("/schools", schoolRoutes);
 app.use("/brammams", brammamRoutes);
+app.use("/users", userRoutes);
 
 module.exports = app;
