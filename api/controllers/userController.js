@@ -134,7 +134,6 @@ module.exports = {
 	},
 	getCurrentUser: async (req, res) => {
 		try {
-
 			const cookies = req.cookies;
 			if (!cookies || !cookies[COOKIE_USER_ID]) {
 				res.status(404).json({ error: "no current user" });
@@ -161,5 +160,36 @@ module.exports = {
 			console.error(error);
 			res.status(500).json({ error: "Internal Server Error" });
 		}
-	}
+	},
+	logout:
+		/**
+		 * @type {import("express").RequestHandler}
+		 */
+		async (req, res) => {
+			try {
+				const cookies = req.cookies;
+				if (!cookies || !cookies[COOKIE_USER_ID]) {
+					res.status(200).json({ message: "not logged in" });
+					return;
+				}
+				const userCookie = cookies[COOKIE_USER_ID];
+				const user = await User.findOne({
+					loggedInCookie: userCookie
+				});
+
+				if (!user) {
+					res.status(200).json({ error: "no user found" })
+					return;
+				}
+
+				user.loggedInCookie = undefined;
+				await user.save();
+
+				res.status(200).clearCookie(COOKIE_USER_ID).send();
+				return;
+			} catch (error) {
+				console.error(error);
+				res.status(500).json({ error: "Internal Server Error" });
+			}
+		}
 }

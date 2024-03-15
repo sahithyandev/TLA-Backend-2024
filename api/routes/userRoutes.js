@@ -17,4 +17,7 @@ router.get("/:userId", userController.getUserById);
 // POST login
 router.post("/login", userController.login)
 
+// POST logout the currenty signed in user
+router.post("/logout", userController.logout)
+
 module.exports = router;
