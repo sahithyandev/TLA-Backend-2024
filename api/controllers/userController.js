@@ -125,7 +125,12 @@ module.exports = {
 					maxAge: _1month,
 					sameSite: "lax",
 					domain: "127.0.0.1",
-				}).json({ passwordHash: null, ...user });
+				}).json({
+					name: user.name,
+					email: user.email,
+					phoneNo: user.phoneNo,
+					profileUrl: user.profileImageUrl
+				});
 			return;
 		} catch (error) {
 			console.error(error);
@@ -178,7 +183,7 @@ module.exports = {
 				});
 
 				if (!user) {
-					res.status(200).json({ error: "no user found" })
+					res.status(200).json({ message: "no user found" })
 					return;
 				}
 
