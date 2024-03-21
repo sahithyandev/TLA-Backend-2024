@@ -1,6 +1,5 @@
 "use strict";
 const mongoose = require("mongoose");
-const { GridFileSchema } = require("./GridFile");
 
 const userSchema = new mongoose.Schema({
 	email: {
@@ -18,8 +17,8 @@ const userSchema = new mongoose.Schema({
 	phoneNo: {
 		type: String
 	},
-	profileImageUrl: {
-		type: GridFileSchema
+	profileImageId: {
+		type: String
 	},
 	loggedInCookie: {
 		type: String

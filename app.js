@@ -9,6 +9,7 @@ const districtRoutes = require("./api/routes/districtRoutes");
 const schoolRoutes = require("./api/routes/schoolRoutes");
 const brammamRoutes = require("./api/routes/brammamRoutes");
 const userRoutes = require("./api/routes/userRoutes");
+const sharedMemoryRoutes = require("./api/routes/sharedMemoryRoutes");
 
 const app = express();
 
@@ -33,5 +34,6 @@ app.use("/districts", districtRoutes);
 app.use("/schools", schoolRoutes);
 app.use("/brammams", brammamRoutes);
 app.use("/users", userRoutes);
+app.use("/shared-memories", sharedMemoryRoutes)
 
 module.exports = app;

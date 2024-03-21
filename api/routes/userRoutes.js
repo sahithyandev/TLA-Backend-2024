@@ -20,4 +20,7 @@ router.post("/login", userController.login)
 // POST logout the currenty signed in user
 router.post("/logout", userController.logout)
 
+// GET user's profile image
+router.get("/image/:id", userController.getProfileImage)
+
 module.exports = router;

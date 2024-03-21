@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
 const User = require("../models/userModel");
 
 const COOKIE_USER_ID = "uid";
@@ -22,6 +23,7 @@ function createLoggedInCookie(email) {
 }
 
 module.exports = {
+	COOKIE_USER_ID,
 	getAllUsers: async (req, res) => {
 		try {
 			const users = await User.find();
@@ -82,7 +84,7 @@ module.exports = {
 					name: user.name,
 					email: user.email,
 					phoneNo: user.phoneNo,
-					profileUrl: user.profileImageUrl
+					profileUrl: user.profileImageId
 				});
 			return;
 		} catch (error) {
@@ -93,7 +95,6 @@ module.exports = {
 	createUser: async (req, res) => {
 		try {
 			const { name, email, password, phoneNo } = req.body;
-			console.log(req.body);
 			if (!name || !email || !password || typeof email != "string") {
 				res.status(400).json({ error: "one or more required fields are left empty" });
 				return;
@@ -129,7 +130,7 @@ module.exports = {
 					name: user.name,
 					email: user.email,
 					phoneNo: user.phoneNo,
-					profileUrl: user.profileImageUrl
+					profileUrl: user.profileImageId
 				});
 			return;
 		} catch (error) {
@@ -159,7 +160,7 @@ module.exports = {
 				name: user.name,
 				email: user.email,
 				phoneNo: user.phoneNo,
-				profileUrl: user.profileImageUrl
+				profileUrl: user.profileImageId
 			});
 		} catch (error) {
 			console.error(error);
@@ -196,5 +197,40 @@ module.exports = {
 				console.error(error);
 				res.status(500).json({ error: "Internal Server Error" });
 			}
+		},
+	getProfileImage:
+		/**
+		 * @param {import("express").Request} req
+		 * @param {import("express").Response} res
+		 */
+		async (req, res) => {
+			const fileId = req.params.id;
+
+			if (typeof fileId != "string") {
+				res.status(404).json({ error: "Invalid image id" });
+				return;
+			}
+
+			res.status(200);
+			fs.createReadStream("assets/user-mock-image.png").pipe(res);
+
+			// const files = gridFsBucket.find({});
+			// const d = new mongoose.Types.ObjectId(fileId);
+
+			// let imageFile = undefined;
+			// for await (const doc of files) {
+			// 	if (doc._id.toString() == d.toString()) {
+			// 		imageFile = doc;
+			// 		break;
+			// 	}
+			// }
+
+			// if (imageFile == undefined) {
+			// 	res.status(404).json({ error: "No such image exists" });
+			// 	return;
+			// }
+
+			// res.status(200);
+			// gridFsBucket.openDownloadStream(imageFile._id).pipe(res);
 		}
 }

@@ -1,6 +1,5 @@
 "use strict";
 const mongoose = require("mongoose");
-const { GridFileSchema } = require("./GridFile");
 
 const sharedMemorySchema = new mongoose.Schema({
 	sharedBy: {
@@ -15,8 +14,9 @@ const sharedMemorySchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	// array of consisting of each image's _id 
 	images: {
-		type: [GridFileSchema],
+		type: [String],
 	},
 });
 

@@ -17,4 +17,5 @@ module.exports = {
   url: HOST_URL,
   host: HOST,
   mongodbUri: MONGODB_URI,
+  gridFsCollectionName: "files_gridfs"
 };
