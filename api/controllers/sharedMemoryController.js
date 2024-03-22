@@ -1,15 +1,12 @@
 const mongoose = require("mongoose");
 const SharedMemory = require("../models/sharedMemoryModel");
-const { gridFsCollectionName, url } = require("../../config/config");
-const Grid = require("gridfs-stream");
+const { url } = require("../../config/config");
 const { Readable } = require("stream");
-const { COOKIE_USER_ID } = require("./userController");
+const { COOKIE_USER_ID, userImageUrl } = require("./userController");
 const User = require("../models/userModel");
 
-/**
- * @type {Grid.Grid}
- */
-let gridFs;
+const MEMORIES_IMAGES_BUCKET_NAME = "memories_images";
+
 /**
  * @type {mongoose.mongo.GridFSBucket}
  */
@@ -18,11 +15,8 @@ const connection = mongoose.connection;
 
 connection.once("open", () => {
 	gridFsBucket = new mongoose.mongo.GridFSBucket(connection.db, {
-		bucketName: gridFsCollectionName
+		bucketName: MEMORIES_IMAGES_BUCKET_NAME
 	})
-
-	gridFs = Grid(connection.db, mongoose.mongo);
-	gridFs.collection(gridFsCollectionName);
 })
 
 module.exports = {
@@ -45,7 +39,7 @@ module.exports = {
 					sharedBy: {
 						name: sharedByUser.name,
 						email: sharedByUser.email,
-						profileImageUrl: `${url}/users/image/${sharedByUser.id}`,
+						profileImageUrl: userImageUrl(sharedByUser.profileImageId),
 					},
 					images: memory.images.map(id => `${url}/shared-memories/image/${id}`)
 				}
