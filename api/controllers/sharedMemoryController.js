@@ -26,7 +26,7 @@ module.exports = {
 
 			const stringifiedMemories = new Array(sharedMemories.length);
 
-			await Promise.all(sharedMemories.map(async (memory, i) => {
+			await Promise.all(sharedMemories.reverse().map(async (memory, i) => {
 				const sharedByUserId = memory.sharedBy;
 				const sharedByUser = await User.findById(sharedByUserId);
 
